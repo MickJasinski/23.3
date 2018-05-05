@@ -6,17 +6,6 @@ export function getSomething(req, res) {
   return res.status(200).end();
 }
 
-// *** Get all notes ***
-
-export function getNotes(req, res) {
-  Note.find().exec((err, notes) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ notes }).status(200).end();
-  });
-}
-
 // *** Add new note ***
 
 export function addNote(req, res) {
@@ -43,6 +32,37 @@ export function addNote(req, res) {
       .then(() => {
         res.json(saved);
       });
+  });
+}
+
+// *** Get all notes ***
+
+export function getNotes(req, res) {
+  Note.find().exec((err, notes) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ notes }).status(200).end();
+  });
+}
+
+// *** Update note ***
+
+export function updateNote(req, res) {
+  const { id: noteId, task: newTask } = req.body;
+
+  if (!noteId || !newTask) {
+    res.status(400).end();
+  }
+
+  Note.findOne({ id: noteId }).exec((err, note) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+
+    note.task = newTask;
+    note.save();
+    res.json(note).status(200).end();
   });
 }
 
@@ -74,25 +94,4 @@ export function deleteNote(req, res) {
     });
   });
 }
-
-// *** Edit note ***
-
-export function editNote(req, res) {
-  const { id: noteId, task: newTask } = req.body;
-
-  if (!noteId || !newTask) {
-    res.status(400).end();
-  }
-
-  Note.findOne({ id: noteId }).exec((err, note) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-
-    note.task = newTask;
-    note.save();
-    res.json(note).status(200).end();
-  });
-}
-
 

@@ -2,16 +2,16 @@ import { Router } from 'express';
 import * as PostController from '../controllers/post.controller';
 const router = new Router();
 
-// Get all Posts
+// Get all posts
 router.route('/posts').get(PostController.getPosts);
 
-// Get one post by cuid
+// Get single post
 router.route('/posts/:cuid').get(PostController.getPost);
 
-// Add a new Post
+// Add a new post
 router.route('/posts').post(PostController.addPost);
 
-// Delete a post by cuid
+// Delete a post
 router.route('/posts/:cuid').delete(PostController.deletePost);
 
 export default router;

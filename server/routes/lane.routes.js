@@ -6,8 +6,8 @@ const router = new Router();
 // Add new Lane
 router.route('/lanes').post(LaneController.addLane);
 
-// Edit lane
-router.route('/lanes/:laneId').put(LaneController.editLane);
+// Update lane
+router.route('/lanes/:laneId').put(LaneController.updateLane);
 
 // Get all Lanes
 router.route('/lanes').get(LaneController.getLanes);

@@ -35,9 +35,9 @@ export function addLane(req, res) {
   });
 }
 
-// *** Edit lane ***
+// *** Update lane ***
 
-export function editLane(req, res) {
+export function updateLane(req, res) {
   const { id: laneId, name: newName } = req.body;
 
   if (!laneId || !newName) {
