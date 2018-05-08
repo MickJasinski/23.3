@@ -1,3 +1,4 @@
+// Temp solution - to be deleted after integration with back end.
 import uuid from 'uuid';
 
 // Export Constants

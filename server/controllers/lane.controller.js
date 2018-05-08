@@ -38,7 +38,7 @@ export function addLane(req, res) {
 // *** Update lane ***
 
 export function updateLane(req, res) {
-  const { id: laneId, name: newName } = req.body;
+  const { id, name } = req.body;
 
   if (!laneId || !newName) {
     res.status(403).end();
@@ -50,7 +50,7 @@ export function updateLane(req, res) {
     }
     lane.name = newName;
     lane.save();
-    res.json(lane).status(200).end();
+    res.json(lane).end();
   });
 }
 
@@ -63,7 +63,7 @@ export function deleteLane(req, res) {
     }
 
     lane.remove(() => {
-      res.status(200).end();
+      res.end();
     });
   });
 }

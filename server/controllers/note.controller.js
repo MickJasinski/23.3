@@ -42,14 +42,14 @@ export function getNotes(req, res) {
     if (err) {
       res.status(500).send(err);
     }
-    res.json({ notes }).status(200).end();
+    res.json({ notes }).end();
   });
 }
 
 // *** Update note ***
 
 export function updateNote(req, res) {
-  const { id: noteId, task: newTask } = req.body;
+  const { id, task } = req.body;
 
   if (!noteId || !newTask) {
     res.status(400).end();
@@ -62,7 +62,7 @@ export function updateNote(req, res) {
 
     note.task = newTask;
     note.save();
-    res.json(note).status(200).end();
+    res.json(note).end();
   });
 }
 
@@ -89,7 +89,7 @@ export function deleteNote(req, res) {
         const filtredNotes = lane.notes.filter(currentNote => currentNote.id !== noteId);
         lane.notes = filtredNotes;
         lane.save();
-        res.json(note).status(200).end();
+        res.json(note).end();
       });
     });
   });
