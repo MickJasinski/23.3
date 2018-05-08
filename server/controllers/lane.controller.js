@@ -11,6 +11,7 @@ export function getLanes(req, res) {
 	Lane.find().exec((err, lanes) => {
 		if (err) {
 			res.status(500).send(err);
+      return;
 		}
 		res.json({ lanes });
 	});
@@ -21,6 +22,7 @@ export function getLanes(req, res) {
 export function addLane(req, res) {
   if (!req.body.name) {
     res.status(403).end();
+    return;
   }
 
   const newLane = new Lane(req.body);
@@ -30,6 +32,7 @@ export function addLane(req, res) {
   newLane.save((err, saved) => {
     if (err) {
       res.status(500).send(err);
+      return;
     }
     res.json(saved);
   });
@@ -42,6 +45,7 @@ export function updateLane(req, res) {
 
   if (!laneId || !newName) {
     res.status(403).end();
+    return;
   }
 
   Lane.findOne({ id: laneId }).exec((err, lane) => {
@@ -71,6 +75,7 @@ export function deleteLane(req, res) {
     }
     lane.remove(() => {
       res.status(200).end();
+      return;
     });
   });
 }
