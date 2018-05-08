@@ -57,13 +57,20 @@ export function updateLane(req, res) {
 // *** Delete lane ***
 
 export function deleteLane(req, res) {
+  Note.deleteMany({ laneId: req.params.laneId }, (err) => {
+    if (err) {
+      res.status(500).send(err);
+      return;
+    }
+  });
+
   Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
     if (err) {
       res.status(500).send(err);
+      return;
     }
-
     lane.remove(() => {
-      res.end();
+      res.status(200).end();
     });
   });
 }
